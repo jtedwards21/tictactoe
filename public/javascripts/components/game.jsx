@@ -13,12 +13,69 @@ export default class Game extends React.Component {
   }
   handleClick(row, column){
     var board = this.state.board;
-    if(board[row][column] == ""){
+    if(board[row][column] == "" && playerTurn == true){
 	board[row][column] = this.state.playerPiece;
-	this.setState({board: board});
+	this.setState({board: board, playerTurn: false});
+        //Allow Computer a Turn
+    } else {
+	//Display an Error Message, You can't click this now...
     }
   }
+  computerTurn(){
+
+  }
   
+  //Already Won Returns True, possible win returns number, else returns false
+  checkOneRow(row, piece){
+    var n = 0;
+    for(var j = 0; j < 3 ;j++){
+	if(row[j] !== piece || row[j] !== ""){
+	  return false;
+        }
+	else if(row[j] == piece){
+	  n++;
+        }
+    }
+    if(n == 1){return false}
+    if(n == 2){}//get the number of the blank box
+    if(n == 3){return true}
+  }
+  //Already Won Returns True, possible win returns number, else returns false
+  checkOneColumn(column, piece){
+    var board = this.state.board;
+    var n = 0;
+    for(var j = 0; j < 3; j++){
+	if(board[j][column] !== piece || board[j][column] !== ""){
+	  return false;
+        }
+	else if(board[j][column] == piece){
+	  n++;
+        }
+    }
+    if(n == 1){return false}
+    if(n == 2){}//return number of blank box
+    if(n == 3){return true}
+  }
+  //Return row,col pair if a winning move can be taken, else returns false
+  computerCheckColumnsForWin(){
+    for(var i = 0; i<3;i++){
+	var result = checkOneColumn(i, this.state.computerPiece);
+        if(result !== true && result !== false){
+	  return {row: result, column: i};
+        }
+    }
+  }
+  //Returns row,col pair if a winning move can taken, else returns false
+  computerCheckRowsForWin(){
+    var board = this.state.board;
+    for(var i = 0; i < 3; i++){
+      var result = checkOneRow(board[i], this.state.computerPiece);
+      if(result !== true && result !== false){
+	return {row: i, column: result};
+      }
+    }
+    return false;
+  }
   render() {
 
     var squareStyle;
