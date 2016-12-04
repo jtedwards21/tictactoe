@@ -16,17 +16,64 @@ export default class Game extends React.Component {
     if(board[row][column] == "" && playerTurn == true){
 	board[row][column] = this.state.playerPiece;
 	this.setState({board: board, playerTurn: false});
-        //Allow Computer a Turn
+        //checkForPlayerWin
+	//checkFOrTie
+	this.computerTurn();
     } else {
 	//Display an Error Message, You can't click this now...
     }
   }
+  computerMove(loc){
+    var board = this.state.board;
+    board[loc.row][loc.column] = this.state.computerPiece;
+  }
+  computerCheckCenter() {
+    var board = this.state.board;
+    if(board[1][1] == ""){return {row: 1, column:1}} else {
+	return false;
+    }
+  }
+  computerCheckCorners(){
+　　  var board = this.state.board;
+    if(board[0][0] == ""){return {row: 0, column:0}} else {
+      if(board[2][2] == ""){return {row: 2, column:2}} else {
+	if(board[2][0] == ""){return {row: 2, column:0}} else {
+	  if(board[0][2] == ""){return {row: 0, column:2}} else {
+		return false;
+        }
+      }
+    }
+  }
+  //if there's a win reset the game and display a mesage
+  checkPlayerWin(){
+    /*TODO*/
+  }
+  //If there's a tie reset the game and display a message
+  checkTie(){
+  /*TODO*/
+  }
+  //At the beginning of computer turn should check for player win
   computerTurn(){
-
+    var d = this.computerCheckDiagonalsForWin();
+    var r = this.computerCheckRowsForWin();
+    var c = this.computerCheckColumnsForWin();
+    var center = this.computerCheckCenter();
+    var corner = this.computerCheckCorners();
+    if(d){this.computerMove(d)} else { //Add computer win message
+      if(r){this.computerMove(r)} else {//Add computer win message
+        if(c){this.computerMove(c)} else {//Add computer win message
+	  if(center){this.computerMove(center)} else {//Add tie check
+	    if(corner){this.computerMove(corner)} else {//Add tie check
+		//Move to sides
+		//Add tie check
+            }
+          }
+        }
+      }
+    }
   }
   //Returns true on already won, returns piece if win possible, otherwise returns false
   checkLeftDiagonal(piece){
-  /*TODO*/
     var n = 0;
     var board = this.state.board;
     var one = board[0][0];
@@ -39,16 +86,49 @@ export default class Game extends React.Component {
     if(two == piece){n++}
     if(three == piece){n++}
     if(n == 1){return false}
-    if(n == 2){/*TODO*/}//Get the blank space number
+    if(n == 2){if(one == ""){return {row: 0, column: 0}} else {
+if(two == ""){return {row: 1, column: 1}} else {
+return {row: 2, column: 2}
+}
+}}
     if(n == 3){return true}
     
   }
-  checkLeftDiagonal(){
-  /*TODO*/
+  //Returns true on already won, returns piece if win possible, otherwise returns false
+  checkRightDiagonal(piece){
+  var n = 0;
+    var board = this.state.board;
+    var one = board[0][2];
+    var two = board[1][1];
+    var three = board[2][0];
+    if(one !== piece || ""){return false}
+    if(two !== piece || ""){return false}
+    if(two !== piece || ""){return false}
+    if(one == piece){n++}
+    if(two == piece){n++}
+    if(three == piece){n++}
+    if(n == 1){return false}
+    if(n == 2){if(one == ""){return {row: 0, column: 2}} else {
+if(two == ""){return {row: 1, column: 1}} else {
+return {row: 2, column: 0}
+}
+}}
+    if(n == 3){return true}
   }
-  //Returns True if already won, otherwise returns a row, col pair
-  checkDiagonals(){
-  /*TODO*/
+  
+  //Return row,col pair if a winning move can be taken, else returns false
+  computerCheckDiagonalsForWin(){
+    var right = this.checkRightDiagonal(this.state.computerPiece);
+    var left = this.checkLeftDiagonal(this.state.computerPiece);
+    if(right !== false && right !== true){
+	return right;
+    } else {
+	if(left !== false && left !== true){
+	  return left;
+	} else {
+	  return false;
+	}
+    }
   }
   //Already Won Returns True, possible win returns number, else returns false
   checkOneRow(row, piece){
@@ -62,7 +142,11 @@ export default class Game extends React.Component {
         }
     }
     if(n == 1){return false}
-    if(n == 2){/*TODO*/}//get the number of the blank box
+    if(n == 2){
+		for(var i = 0; i < 3; i++){
+	if(row[i] == ""){return i;}
+}
+}
     if(n == 3){return true}
   }
   //Already Won Returns True, possible win returns number, else returns false
@@ -78,7 +162,11 @@ export default class Game extends React.Component {
         }
     }
     if(n == 1){return false}
-    if(n == 2){/*TODO*/}//return number of blank box
+    if(n == 2){
+		for(var i = 0; i < 3; i++){
+		  if(board[i][column] == ""){return i}
+		}
+}
     if(n == 3){return true}
   }
   //Return row,col pair if a winning move can be taken, else returns false
