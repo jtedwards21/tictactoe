@@ -5,15 +5,15 @@ export default class Game extends React.Component {
     super();
 
     this.state = {
-      playerTurn: true
-      board: [["","",""],["","",""],["","",""]]
+      playerTurn: true,
+      board: [["","",""],["","",""],["","",""]],
       playerPiece: 'X',
-      computerPiece: 'O',
+      computerPiece: 'O'
     };
   }
   handleClick(row, column){
     var board = this.state.board;
-    if(board[row][column] == "" && playerTurn == true){
+    if(board[row][column] == "" && this.state.playerTurn == true){
 	board[row][column] = this.state.playerPiece;
 	this.setState({board: board, playerTurn: false});
         //checkForPlayerWin
@@ -24,8 +24,8 @@ export default class Game extends React.Component {
     }
   }
   computerMove(loc){
-    var board = this.state.board;
-    board[loc.row][loc.column] = this.state.computerPiece;
+    //var board = this.state.board;
+    //board[loc.row][loc.column] = this.state.computerPiece;
   }
   computerCheckCenter() {
     var board = this.state.board;
@@ -40,6 +40,7 @@ export default class Game extends React.Component {
 	if(board[2][0] == ""){return {row: 2, column:0}} else {
 	  if(board[0][2] == ""){return {row: 0, column:2}} else {
 		return false;
+	  }
         }
       }
     }
@@ -52,6 +53,7 @@ export default class Game extends React.Component {
 	if(board[1][0] == ""){return {row: 1, column:0}} else {
 	  if(board[1][3] == ""){return {row: 1, column:3}} else {
 		return false;
+	  }
         }
       }
     }
@@ -65,9 +67,10 @@ export default class Game extends React.Component {
     var board = this.state.board;
     for(var i = 0; i < 3;i++){
         var row = board[i];
-	for(var j = 0; j < 3){
+	for(var j = 0; j < 3;j++){
 	  if(row[j] == ""){
 	  return false;
+	  }
         }
     }
     return true;
@@ -211,7 +214,7 @@ return {row: 2, column: 0}
   //Return row,col pair if a winning move can be taken, else returns false
   computerCheckColumnsForWin(){
     for(var i = 0; i<3;i++){
-	var result = checkOneColumn(i, this.state.computerPiece);
+	var result = this.checkOneColumn(i, this.state.computerPiece);
         if(result !== true && result !== false){
 	  return {row: result, column: i};
         }
@@ -221,7 +224,7 @@ return {row: 2, column: 0}
   computerCheckRowsForWin(){
     var board = this.state.board;
     for(var i = 0; i < 3; i++){
-      var result = checkOneRow(board[i], this.state.computerPiece);
+      var result = this.checkOneRow(board[i], this.state.computerPiece);
       if(result !== true && result !== false){
 	return {row: i, column: result};
       }
