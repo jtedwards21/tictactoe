@@ -44,13 +44,33 @@ export default class Game extends React.Component {
       }
     }
   }
+  //find which side is blank, else return false
+  computerCheckSides(){
+    var board = this.state.board;
+    if(board[0][1] == ""){return {row: 0, column:1}} else {
+      if(board[2][1] == ""){return {row: 2, column:1}} else {
+	if(board[1][0] == ""){return {row: 1, column:0}} else {
+	  if(board[1][3] == ""){return {row: 1, column:3}} else {
+		return false;
+        }
+      }
+    }
+  }
   //if there's a win reset the game and display a mesage
   checkPlayerWin(){
     /*TODO*/
   }
-  //If there's a tie reset the game and display a message
+  //Return true if there's a tie, false if not
   checkTie(){
-  /*TODO*/
+    var board = this.state.board;
+    for(var i = 0; i < 3;i++){
+        var row = board[i];
+	for(var j = 0; j < 3){
+	  if(row[j] == ""){
+	  return false;
+        }
+    }
+    return true;
   }
   //At the beginning of computer turn should check for player win
   computerTurn(){
@@ -59,13 +79,32 @@ export default class Game extends React.Component {
     var c = this.computerCheckColumnsForWin();
     var center = this.computerCheckCenter();
     var corner = this.computerCheckCorners();
+    var sides = this.computerCheckSides();
     if(d){this.computerMove(d)} else { //Add computer win message
       if(r){this.computerMove(r)} else {//Add computer win message
         if(c){this.computerMove(c)} else {//Add computer win message
-	  if(center){this.computerMove(center)} else {//Add tie check
-	    if(corner){this.computerMove(corner)} else {//Add tie check
-		//Move to sides
-		//Add tie check
+	  if(center){
+this.computerMove(center)
+if(this.checkTie()){
+		  //display Tie message
+	          //reset game
+		  
+		}
+} else {
+	    if(corner){
+this.computerMove(corner)
+if(this.checkTie()){
+		  //display Tie message
+	          //reset game
+		  
+		}
+} else {
+		this.computerMove(sides);
+		if(this.checkTie()){
+		  //display Tie message
+	          //reset game
+		  
+		}
             }
           }
         }
