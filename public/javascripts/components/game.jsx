@@ -24,7 +24,32 @@ export default class Game extends React.Component {
   computerTurn(){
 
   }
-  
+  //Returns true on already won, returns piece if win possible, otherwise returns false
+  checkLeftDiagonal(piece){
+  /*TODO*/
+    var n = 0;
+    var board = this.state.board;
+    var one = board[0][0];
+    var two = board[1][1];
+    var three = board[2][2];
+    if(one !== piece || ""){return false}
+    if(two !== piece || ""){return false}
+    if(two !== piece || ""){return false}
+    if(one == piece){n++}
+    if(two == piece){n++}
+    if(three == piece){n++}
+    if(n == 1){return false}
+    if(n == 2){/*TODO*/}//Get the blank space number
+    if(n == 3){return true}
+    
+  }
+  checkLeftDiagonal(){
+  /*TODO*/
+  }
+  //Returns True if already won, otherwise returns a row, col pair
+  checkDiagonals(){
+  /*TODO*/
+  }
   //Already Won Returns True, possible win returns number, else returns false
   checkOneRow(row, piece){
     var n = 0;
@@ -37,7 +62,7 @@ export default class Game extends React.Component {
         }
     }
     if(n == 1){return false}
-    if(n == 2){}//get the number of the blank box
+    if(n == 2){/*TODO*/}//get the number of the blank box
     if(n == 3){return true}
   }
   //Already Won Returns True, possible win returns number, else returns false
@@ -53,7 +78,7 @@ export default class Game extends React.Component {
         }
     }
     if(n == 1){return false}
-    if(n == 2){}//return number of blank box
+    if(n == 2){/*TODO*/}//return number of blank box
     if(n == 3){return true}
   }
   //Return row,col pair if a winning move can be taken, else returns false
