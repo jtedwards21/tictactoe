@@ -1,4 +1,39 @@
-body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+#background {
+  background-color: #555;
+  margin: 0;
+  top: 0;
+  left: 0;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
 }
 
+#content {
+  margin: 0 auto;
+}
+
+#box {
+  background-color: #6E4D4D;
+  border-radius: 16px;
+  padding: 50px;
+  margin-top: 100px;
+  height: 400px;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+  z-index: 1;
+}
+
+.board-row {
+  border: 3px solid #A17171;
+}
+
+
+.board-row div {
+  font-size: 3em;
+  height: 100px;
+  color: #EEEEEE;
+  line-height: 100px;
+}

@@ -21932,13 +21932,13 @@
 
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "box" },
+	        { id: "box", className: "box" },
 	        _react2.default.createElement(
 	          "div",
 	          { className: "board" },
 	          _react2.default.createElement(
 	            "div",
-	            { id: "top-row", className: "board-row" },
+	            { id: "top-row", className: "board-row col-xs-12" },
 	            _react2.default.createElement(
 	              "div",
 	              { style: squareStyle, className: "text-center square col-xs-4", onClick: this.handleClick(0, 0) },
@@ -21957,7 +21957,7 @@
 	          ),
 	          _react2.default.createElement(
 	            "div",
-	            { id: "middle-row", className: "board-row" },
+	            { id: "middle-row", className: "board-row col-xs-12" },
 	            _react2.default.createElement(
 	              "div",
 	              { style: squareStyle, className: "text-center square col-xs-4", onClick: this.handleClick(1, 0) },
@@ -21976,7 +21976,7 @@
 	          ),
 	          _react2.default.createElement(
 	            "div",
-	            { id: "botton-row", className: "board-row" },
+	            { id: "bottom-row", className: "board-row col-xs-12" },
 	            _react2.default.createElement(
 	              "div",
 	              { style: squareStyle, className: "text-center square col-xs-4", onClick: this.handleClick(2, 0) },
