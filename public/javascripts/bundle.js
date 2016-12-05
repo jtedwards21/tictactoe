@@ -21569,7 +21569,7 @@
 	    var _this = _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).call(this));
 
 	    _this.state = {
-	      playerTurn: true,
+	      canClick: true,
 	      board: [["", "", ""], ["", "", ""], ["", "", ""]],
 	      playerPiece: 'X',
 	      computerPiece: 'O'
@@ -21579,11 +21579,14 @@
 
 	  _createClass(Game, [{
 	    key: "handleClick",
-	    value: function handleClick(row, column) {
+	    value: function handleClick(e) {
+	      console.log(e.target.id);
+	      var row = e.target.id.split(',')[0];
+	      var column = e.target.id.split(',')[1];
 	      var board = this.state.board;
-	      if (board[row][column] == "" && this.state.playerTurn == true) {
+	      if (board[row][column] == "" && this.state.canClick == true) {
 	        board[row][column] = this.state.playerPiece;
-	        this.setState({ board: board, playerTurn: false });
+	        this.setState({ board: board });
 	        //checkForPlayerWin
 	        //checkFOrTie
 	        this.computerTurn();
@@ -21594,8 +21597,8 @@
 	  }, {
 	    key: "computerMove",
 	    value: function computerMove(loc) {
-	      //var board = this.state.board;
-	      //board[loc.row][loc.column] = this.state.computerPiece;
+	      var board = this.state.board;
+	      board[loc.row][loc.column] = this.state.computerPiece;
 	    }
 	  }, {
 	    key: "computerCheckCenter",
@@ -21681,6 +21684,7 @@
 	  }, {
 	    key: "computerTurn",
 	    value: function computerTurn() {
+	      console.log('computerTurn');
 	      var d = this.computerCheckDiagonalsForWin();
 	      var r = this.computerCheckRowsForWin();
 	      var c = this.computerCheckColumnsForWin();
@@ -21903,6 +21907,7 @@
 	          return { row: result, column: i };
 	        }
 	      }
+	      return false;
 	    }
 	    //Returns row,col pair if a winning move can taken, else returns false
 
@@ -21941,18 +21946,30 @@
 	            { id: "top-row", className: "board-row col-xs-12" },
 	            _react2.default.createElement(
 	              "div",
-	              { style: squareStyle, className: "text-center square col-xs-4", onClick: this.handleClick(0, 0) },
-	              this.state.board[0][0]
+	              null,
+	              _react2.default.createElement(
+	                "div",
+	                { style: squareStyle, id: "0,0", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                this.state.board[0][0]
+	              )
 	            ),
 	            _react2.default.createElement(
 	              "div",
-	              { style: squareStyle, className: "text-center square col-xs-4", onClick: this.handleClick(0, 1) },
-	              this.state.board[0][1]
+	              null,
+	              _react2.default.createElement(
+	                "div",
+	                { style: squareStyle, id: "0,1", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                this.state.board[0][1]
+	              )
 	            ),
 	            _react2.default.createElement(
 	              "div",
-	              { style: squareStyle, className: "text-center square col-xs-4", onClick: this.handleClick(0, 2) },
-	              this.state.board[0][2]
+	              null,
+	              _react2.default.createElement(
+	                "div",
+	                { style: squareStyle, id: "0,2", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                this.state.board[0][2]
+	              )
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -21960,18 +21977,30 @@
 	            { id: "middle-row", className: "board-row col-xs-12" },
 	            _react2.default.createElement(
 	              "div",
-	              { style: squareStyle, className: "text-center square col-xs-4", onClick: this.handleClick(1, 0) },
-	              this.state.board[1][0]
+	              null,
+	              _react2.default.createElement(
+	                "div",
+	                { style: squareStyle, id: "1,0", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                this.state.board[1][0]
+	              )
 	            ),
 	            _react2.default.createElement(
 	              "div",
-	              { style: squareStyle, className: "text-center square col-xs-4", onClick: this.handleClick(1, 1) },
-	              this.state.board[1][1]
+	              null,
+	              _react2.default.createElement(
+	                "div",
+	                { style: squareStyle, id: "1,1", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                this.state.board[1][1]
+	              )
 	            ),
 	            _react2.default.createElement(
 	              "div",
-	              { style: squareStyle, className: "text-center square col-xs-4", onClick: this.handleClick(1, 2) },
-	              this.state.board[1][2]
+	              null,
+	              _react2.default.createElement(
+	                "div",
+	                { style: squareStyle, id: "1,2", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                this.state.board[1][2]
+	              )
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -21979,18 +22008,30 @@
 	            { id: "bottom-row", className: "board-row col-xs-12" },
 	            _react2.default.createElement(
 	              "div",
-	              { style: squareStyle, className: "text-center square col-xs-4", onClick: this.handleClick(2, 0) },
-	              this.state.board[2][0]
+	              null,
+	              _react2.default.createElement(
+	                "div",
+	                { style: squareStyle, id: "2,0", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                this.state.board[2][0]
+	              )
 	            ),
 	            _react2.default.createElement(
 	              "div",
-	              { style: squareStyle, className: "text-center square col-xs-4", onClick: this.handleClick(2, 1) },
-	              this.state.board[2][1]
+	              null,
+	              _react2.default.createElement(
+	                "div",
+	                { style: squareStyle, id: "2,1", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                this.state.board[2][1]
+	              )
 	            ),
 	            _react2.default.createElement(
 	              "div",
-	              { style: squareStyle, className: "text-center square col-xs-4", onClick: this.handleClick(2, 2) },
-	              this.state.board[2][2]
+	              null,
+	              _react2.default.createElement(
+	                "div",
+	                { style: squareStyle, id: "2,2", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                this.state.board[2][2]
+	              )
 	            )
 	          )
 	        )

@@ -1,31 +1,42 @@
 import React from "react";
+import Message from "./message";
 
 export default class Game extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      playerTurn: true,
+      canClick: true,
       board: [["","",""],["","",""],["","",""]],
       playerPiece: 'X',
-      computerPiece: 'O'
+      computerPiece: 'O',
+      message: "",
+      messageColor: ""
     };
   }
-  handleClick(row, column){
+  handleClick(e){
+    console.log(e.target.id);
+    var row = e.target.id.split(',')[0];
+    var column = e.target.id.split(',')[1];
     var board = this.state.board;
-    if(board[row][column] == "" && this.state.playerTurn == true){
+    if(board[row][column] == "" && this.state.canClick == true){
 	board[row][column] = this.state.playerPiece;
-	this.setState({board: board, playerTurn: false});
-        //checkForPlayerWin
-	//checkFOrTie
+	this.setState({board: board});
+        if(this.checkPlayerWin()){
+	//Display Message and End Game
+	}
+	if(this.checkTie()){	  
+	  this.displayMessage("A Tie!","black");
+	  this.setState(board: [["","",""],["","",""],["","",""]]);
+	}
 	this.computerTurn();
     } else {
 	//Display an Error Message, You can't click this now...
     }
   }
   computerMove(loc){
-    //var board = this.state.board;
-    //board[loc.row][loc.column] = this.state.computerPiece;
+    var board = this.state.board;
+    board[loc.row][loc.column] = this.state.computerPiece;
   }
   computerCheckCenter() {
     var board = this.state.board;
@@ -60,7 +71,16 @@ export default class Game extends React.Component {
   }
   //if there's a win reset the game and display a mesage
   checkPlayerWin(){
-    /*TODO*/
+    var r = this.playerCheckRowsForWin();
+    var c = this.playerCheckColumnsForWin();
+    var d = this.playerCheckDiagonalsForWin();
+    if(d) {return true} else {
+	if (c) {return true } else {
+	  if (d) {return true} else {
+		return false;
+  	  }
+        }
+    }
   }
   //Return true if there's a tie, false if not
   checkTie(){
@@ -75,37 +95,58 @@ export default class Game extends React.Component {
     }
     return true;
   }
+  displayMessage(message, color){
+  this.setState({message: message, color: color});
+  //Blink the Message
+  }
   //At the beginning of computer turn should check for player win
   computerTurn(){
+    console.log('computerTurn');
     var d = this.computerCheckDiagonalsForWin();
     var r = this.computerCheckRowsForWin();
     var c = this.computerCheckColumnsForWin();
     var center = this.computerCheckCenter();
     var corner = this.computerCheckCorners();
     var sides = this.computerCheckSides();
-    if(d){this.computerMove(d)} else { //Add computer win message
-      if(r){this.computerMove(r)} else {//Add computer win message
-        if(c){this.computerMove(c)} else {//Add computer win message
+    if(d){
+this.computerMove(d);
+this.displayMessage("You Lose!","red");
+this.setState(board: [["","",""],["","",""],["","",""]]);
+} else { 
+      if(r){
+this.computerMove(r)
+this.displayMessage("You Lose!","red");
+this.setState(board: [["","",""],["","",""],["","",""]]);
+} else {
+        if(c){
+this.computerMove(c)
+this.displayMessage("You Lose!","red");
+this.setState(board: [["","",""],["","",""],["","",""]]);
+} else {
 	  if(center){
 this.computerMove(center)
 if(this.checkTie()){
-		  //display Tie message
-	          //reset game
+
+		  
+this.displayMessage("A Tie!","black");
+this.setState(board: [["","",""],["","",""],["","",""]]);
 		  
 		}
 } else {
 	    if(corner){
 this.computerMove(corner)
 if(this.checkTie()){
-		  //display Tie message
-	          //reset game
+		  
+this.displayMessage("A Tie!","black");
+this.setState(board: [["","",""],["","",""],["","",""]]);
 		  
 		}
 } else {
 		this.computerMove(sides);
 		if(this.checkTie()){
-		  //display Tie message
-	          //reset game
+		  
+this.displayMessage("A Tie!","black");
+this.setState(board: [["","",""],["","",""],["","",""]]);
 		  
 		}
             }
@@ -157,7 +198,19 @@ return {row: 2, column: 0}
 }}
     if(n == 3){return true}
   }
-  
+  playerCheckDiagonalsForWin() {
+    var right = this.checkRightDiagonal(this.state.playerPiece);
+    var left = this.checkLeftDiagonal(this.state.playerPiece);
+    if(right == true){
+	return true;
+    } else {
+	if(left == true){
+	  return true;
+	} else {
+	  return false;
+	}
+    }
+  }
   //Return row,col pair if a winning move can be taken, else returns false
   computerCheckDiagonalsForWin(){
     var right = this.checkRightDiagonal(this.state.computerPiece);
@@ -211,6 +264,26 @@ return {row: 2, column: 0}
 }
     if(n == 3){return true}
   }
+  playerCheckRowsForWin(){
+    var board = this.state.board;
+    for(var i = 0; i < 3; i++){
+      var result = this.checkOneRow(board[i], this.state.playerPiece);
+      if(result == true){
+	return true;
+      }
+    }
+    return false;
+  }
+  //Return True if Player has won, else return false;
+  playerCheckColumnsForWin(){
+    for(var i = 0; i<3;i++){
+	var result = this.checkOneColumn(i, this.state.playerPiece);
+        if(result == true){
+	  return true;
+        }
+    }
+    return false;
+  }
   //Return row,col pair if a winning move can be taken, else returns false
   computerCheckColumnsForWin(){
     for(var i = 0; i<3;i++){
@@ -219,6 +292,7 @@ return {row: 2, column: 0}
 	  return {row: result, column: i};
         }
     }
+    return false;
   }
   //Returns row,col pair if a winning move can taken, else returns false
   computerCheckRowsForWin(){
@@ -237,25 +311,31 @@ return {row: 2, column: 0}
 
     if (this.state.playerTurn = true){squareStyle = {cursor: "pointer"};} else {squareStyle = {cursor: "unset"};}
 
+    var message;
+    if (this.state.message !== ""){
+	message = <Message message={this.state.message} color={this.state.messageColor} />
+    }
+
     return (
       <div id="box" className="box">
 	<div className="board">
 	  <div id="top-row" className="board-row col-xs-12">
-	    <div style={squareStyle} className="text-center square col-xs-4" onClick={this.handleClick(0,0)}>{this.state.board[0][0]}</div>
-	    <div style={squareStyle} className="text-center square col-xs-4" onClick={this.handleClick(0,1)}>{this.state.board[0][1]}</div>
-	    <div style={squareStyle} className="text-center square col-xs-4" onClick={this.handleClick(0,2)}>{this.state.board[0][2]}</div>
+	    <div><div style={squareStyle}　id="0,0" className="text-center square col-xs-4" onClick={this.handleClick.bind(this)}>{this.state.board[0][0]}</div></div>
+	    <div><div style={squareStyle}　id="0,1" className="text-center square col-xs-4" onClick={this.handleClick.bind(this)}>{this.state.board[0][1]}</div></div>
+	    <div><div style={squareStyle}　id="0,2" className="text-center square col-xs-4" onClick={this.handleClick.bind(this)}>{this.state.board[0][2]}</div></div>
 	  </div>
 	  <div id="middle-row" className="board-row col-xs-12">
-	    <div style={squareStyle} className="text-center square col-xs-4" onClick={this.handleClick(1,0)}>{this.state.board[1][0]}</div>
-	    <div style={squareStyle} className="text-center square col-xs-4" onClick={this.handleClick(1,1)}>{this.state.board[1][1]}</div>
-	    <div style={squareStyle} className="text-center square col-xs-4" onClick={this.handleClick(1,2)}>{this.state.board[1][2]}</div>
+	    <div><div style={squareStyle}　id="1,0" className="text-center square col-xs-4" onClick={this.handleClick.bind(this)}>{this.state.board[1][0]}</div></div>
+	    <div><div style={squareStyle}　id="1,1" className="text-center square col-xs-4" onClick={this.handleClick.bind(this)}>{this.state.board[1][1]}</div></div>
+	    <div><div style={squareStyle}　id="1,2" className="text-center square col-xs-4" onClick={this.handleClick.bind(this)}>{this.state.board[1][2]}</div></div>
 	  </div>
 	  <div id="bottom-row" className="board-row col-xs-12">
-	    <div style={squareStyle} className="text-center square col-xs-4"　onClick={this.handleClick(2,0)}>{this.state.board[2][0]}</div>
-	    <div style={squareStyle} className="text-center square col-xs-4"　onClick={this.handleClick(2,1)}>{this.state.board[2][1]}</div>
-	    <div style={squareStyle} className="text-center square col-xs-4"　onClick={this.handleClick(2,2)}>{this.state.board[2][2]}</div>
+	    <div><div style={squareStyle}　id="2,0" className="text-center square col-xs-4"　onClick={this.handleClick.bind(this)}>{this.state.board[2][0]}</div></div>
+	    <div><div style={squareStyle}　id="2,1" className="text-center square col-xs-4"　onClick={this.handleClick.bind(this)}>{this.state.board[2][1]}</div></div>
+	    <div><div style={squareStyle}　id="2,2" className="text-center square col-xs-4"　onClick={this.handleClick.bind(this)}>{this.state.board[2][2]}</div></div>
 	  </div>
 	</div>
+	{message}
       </div>
     );
   }
