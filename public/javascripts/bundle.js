@@ -21588,6 +21588,13 @@
 	  }
 
 	  _createClass(Game, [{
+	    key: "resetGame",
+	    value: function resetGame(that) {
+	      window.setTimeout(function () {
+	        that.setState({ board: [["", "", ""], ["", "", ""], ["", "", ""]] });
+	      }, 1000);
+	    }
+	  }, {
 	    key: "handleClick",
 	    value: function handleClick(e) {
 	      console.log(e.target.id);
@@ -21599,7 +21606,8 @@
 	        this.setState({ board: board });
 	        if (this.checkPlayerWin()) {
 	          this.displayMessage("You Win!", "green");
-	          this.setState({ board: [["", "", ""], ["", "", ""], ["", "", ""]] });
+	          var that = this;
+	          this.resetGame(that);
 	        }
 	        if (this.checkTie()) {
 	          this.displayMessage("A Tie!", "black");

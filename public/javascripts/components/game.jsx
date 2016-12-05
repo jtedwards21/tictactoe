@@ -15,6 +15,9 @@ export default class Game extends React.Component {
       messageColor: ""
     };
   }
+  resetGame(that){
+    window.setTimeout(function(){that.setState({board: [["","",""],["","",""],["","",""]]});}, 1000);
+  }
   handleClick(e){
     console.log(e.target.id);
     var row = e.target.id.split(',')[0];
@@ -25,7 +28,8 @@ export default class Game extends React.Component {
 	this.setState({board: board});
         if(this.checkPlayerWin()){	  
 	  this.displayMessage("You Win!","green");
-	  this.setState({board: [["","",""],["","",""],["","",""]]});
+          var that = this;
+	  this.resetGame(that);
 	
 	}
 	if(this.checkTie()){	  
