@@ -21611,7 +21611,8 @@
 	        }
 	        if (this.checkTie()) {
 	          this.displayMessage("A Tie!", "black");
-	          this.setState({ board: [["", "", ""], ["", "", ""], ["", "", ""]] });
+	          var that = this;
+	          this.resetGame(that);
 	        }
 	        this.computerTurn();
 	      } else {
@@ -21739,24 +21740,28 @@
 	      if (d) {
 	        this.computerMove(d);
 	        this.displayMessage("You Lose!", "red");
-	        this.setState({ board: [["", "", ""], ["", "", ""], ["", "", ""]] });
+	        var that = this;
+	        this.resetGame(that);
 	      } else {
 	        if (r) {
 	          this.computerMove(r);
 	          this.displayMessage("You Lose!", "red");
-	          this.setState({ board: [["", "", ""], ["", "", ""], ["", "", ""]] });
+	          var that = this;
+	          this.resetGame(that);
 	        } else {
 	          if (c) {
 	            this.computerMove(c);
 	            this.displayMessage("You Lose!", "red");
-	            this.setState({ board: [["", "", ""], ["", "", ""], ["", "", ""]] });
+	            var that = this;
+	            this.resetGame(that);
 	          } else {
 	            if (center) {
 	              this.computerMove(center);
 	              if (this.checkTie()) {
 
 	                this.displayMessage("A Tie!", "black");
-	                this.setState({ board: [["", "", ""], ["", "", ""], ["", "", ""]] });
+	                var that = this;
+	                this.resetGame(that);
 	              }
 	            } else {
 	              if (corner) {
@@ -21764,14 +21769,16 @@
 	                if (this.checkTie()) {
 
 	                  this.displayMessage("A Tie!", "black");
-	                  this.setState({ board: [["", "", ""], ["", "", ""], ["", "", ""]] });
+	                  var that = this;
+	                  this.resetGame(that);
 	                }
 	              } else {
 	                this.computerMove(sides);
 	                if (this.checkTie()) {
 
 	                  this.displayMessage("A Tie!", "black");
-	                  this.setState({ board: [["", "", ""], ["", "", ""], ["", "", ""]] });
+	                  var that = this;
+	                  this.resetGame(that);
 	                }
 	              }
 	            }

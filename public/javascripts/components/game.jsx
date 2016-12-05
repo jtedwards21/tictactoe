@@ -34,7 +34,8 @@ export default class Game extends React.Component {
 	}
 	if(this.checkTie()){	  
 	  this.displayMessage("A Tie!","black");
-	  this.setState({board: [["","",""],["","",""],["","",""]]});
+	  var that = this;
+	  this.resetGame(that);
 	}
 	this.computerTurn();
     } else {
@@ -118,17 +119,20 @@ export default class Game extends React.Component {
     if(d){
 this.computerMove(d);
 this.displayMessage("You Lose!","red");
-this.setState({board: [["","",""],["","",""],["","",""]]});
+var that = this;
+this.resetGame(that);
 } else { 
       if(r){
 this.computerMove(r)
 this.displayMessage("You Lose!","red");
-this.setState({board: [["","",""],["","",""],["","",""]]});
+var that = this;
+this.resetGame(that);
 } else {
         if(c){
 this.computerMove(c)
 this.displayMessage("You Lose!","red");
-this.setState({board: [["","",""],["","",""],["","",""]]});
+var that = this;
+this.resetGame(that);
 } else {
 	  if(center){
 this.computerMove(center)
@@ -136,7 +140,8 @@ if(this.checkTie()){
 
 		  
 this.displayMessage("A Tie!","black");
-this.setState({board: [["","",""],["","",""],["","",""]]});
+var that = this;
+this.resetGame(that);
 		  
 		}
 } else {
@@ -145,7 +150,8 @@ this.computerMove(corner)
 if(this.checkTie()){
 		  
 this.displayMessage("A Tie!","black");
-this.setState({board: [["","",""],["","",""],["","",""]]});
+var that = this;
+this.resetGame(that);
 		  
 		}
 } else {
@@ -153,7 +159,8 @@ this.setState({board: [["","",""],["","",""],["","",""]]});
 		if(this.checkTie()){
 		  
 this.displayMessage("A Tie!","black");
-this.setState({board: [["","",""],["","",""],["","",""]]});
+var that = this;
+this.resetGame(that);
 		  
 		}
             }
