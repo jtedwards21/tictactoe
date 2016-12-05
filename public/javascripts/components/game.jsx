@@ -77,7 +77,7 @@ export default class Game extends React.Component {
     var r = this.playerCheckRowsForWin();
     var c = this.playerCheckColumnsForWin();
     var d = this.playerCheckDiagonalsForWin();
-    if(d) {return true} else {
+    if(r) {return true} else {
 	if (c) {return true } else {
 	  if (d) {return true} else {
 		return false;
@@ -165,9 +165,9 @@ this.setState({board: [["","",""],["","",""],["","",""]]});
     var one = board[0][0];
     var two = board[1][1];
     var three = board[2][2];
-    if(one !== piece || ""){return false}
-    if(two !== piece || ""){return false}
-    if(two !== piece || ""){return false}
+    if(one !== piece && one !== ""){return false}
+    if(two !== piece && two !== ""){return false}
+    if(three !== piece && three !== ""){return false}
     if(one == piece){n++}
     if(two == piece){n++}
     if(three == piece){n++}
@@ -178,7 +178,7 @@ if(two == ""){return {row: 1, column: 1}} else {
 return {row: 2, column: 2}
 }
 }}
-    if(n == 3){return true}
+    if(n == 3){return "win"}
     
   }
   //Returns true on already won, returns piece if win possible, otherwise returns false
@@ -188,9 +188,9 @@ return {row: 2, column: 2}
     var one = board[0][2];
     var two = board[1][1];
     var three = board[2][0];
-    if(one !== piece || ""){return false}
-    if(two !== piece || ""){return false}
-    if(two !== piece || ""){return false}
+    if(one !== piece && one !== ""){return false}
+    if(two !== piece && two !== ""){return false}
+    if(three !== piece && three !== ""){return false}
     if(one == piece){n++}
     if(two == piece){n++}
     if(three == piece){n++}
@@ -201,15 +201,15 @@ if(two == ""){return {row: 1, column: 1}} else {
 return {row: 2, column: 0}
 }
 }}
-    if(n == 3){return true}
+    if(n == 3){return "win"}
   }
   playerCheckDiagonalsForWin() {
     var right = this.checkRightDiagonal(this.state.playerPiece);
     var left = this.checkLeftDiagonal(this.state.playerPiece);
-    if(right == true){
+    if(right == "win"){
 	return true;
     } else {
-	if(left == true){
+	if(left == "win"){
 	  return true;
 	} else {
 	  return false;
@@ -220,10 +220,10 @@ return {row: 2, column: 0}
   computerCheckDiagonalsForWin(){
     var right = this.checkRightDiagonal(this.state.computerPiece);
     var left = this.checkLeftDiagonal(this.state.computerPiece);
-    if(right !== false && right !== true){
+    if(right.row !== undefined){
 	return right;
     } else {
-	if(left !== false && left !== true){
+	if(left.row !== undefined){
 	  return left;
 	} else {
 	  return false;
@@ -248,7 +248,7 @@ return {row: 2, column: 0}
 	if(row[i] == ""){return i;}
 }
 }
-    if(n == 3){return true}
+    if(n == 3){return "win"}
   }
   //Already Won Returns True, possible win returns number, else returns false
   checkOneColumn(column, piece){
@@ -269,13 +269,13 @@ return {row: 2, column: 0}
 		  if(board[i][column] == ""){return i}
 		}
 }
-    if(n == 3){return true}
+    if(n == 3){return "win"}
   }
   playerCheckRowsForWin(){
     var board = this.state.board;
     for(var i = 0; i < 3; i++){
       var result = this.checkOneRow(board[i], this.state.playerPiece);
-      if(result == true){
+      if(result == "win"){
 	return true;
       }
     }
@@ -285,7 +285,7 @@ return {row: 2, column: 0}
   playerCheckColumnsForWin(){
     for(var i = 0; i<3;i++){
 	var result = this.checkOneColumn(i, this.state.playerPiece);
-        if(result == true){
+        if(result == "win"){
 	  return true;
         }
     }
@@ -295,7 +295,7 @@ return {row: 2, column: 0}
   computerCheckColumnsForWin(){
     for(var i = 0; i<3;i++){
 	var result = this.checkOneColumn(i, this.state.computerPiece);
-        if(result !== true && result !== false){
+        if(typeof(result) == "number"){
 	  return {row: result, column: i};
         }
     }
@@ -306,7 +306,7 @@ return {row: 2, column: 0}
     var board = this.state.board;
     for(var i = 0; i < 3; i++){
       var result = this.checkOneRow(board[i], this.state.computerPiece);
-      if(result !== true && result !== false){
+      if(typeof(result) == "number"){
 	return {row: i, column: result};
       }
     }

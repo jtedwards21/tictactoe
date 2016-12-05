@@ -21680,7 +21680,7 @@
 	      var r = this.playerCheckRowsForWin();
 	      var c = this.playerCheckColumnsForWin();
 	      var d = this.playerCheckDiagonalsForWin();
-	      if (d) {
+	      if (r) {
 	        return true;
 	      } else {
 	        if (c) {
@@ -21781,13 +21781,13 @@
 	      var one = board[0][0];
 	      var two = board[1][1];
 	      var three = board[2][2];
-	      if (one !== piece || "") {
+	      if (one !== piece && one !== "") {
 	        return false;
 	      }
-	      if (two !== piece || "") {
+	      if (two !== piece && two !== "") {
 	        return false;
 	      }
-	      if (two !== piece || "") {
+	      if (three !== piece && three !== "") {
 	        return false;
 	      }
 	      if (one == piece) {
@@ -21817,7 +21817,7 @@
 	        }
 	      }
 	      if (n == 3) {
-	        return true;
+	        return "win";
 	      }
 	    }
 	    //Returns true on already won, returns piece if win possible, otherwise returns false
@@ -21830,13 +21830,13 @@
 	      var one = board[0][2];
 	      var two = board[1][1];
 	      var three = board[2][0];
-	      if (one !== piece || "") {
+	      if (one !== piece && one !== "") {
 	        return false;
 	      }
-	      if (two !== piece || "") {
+	      if (two !== piece && two !== "") {
 	        return false;
 	      }
-	      if (two !== piece || "") {
+	      if (three !== piece && three !== "") {
 	        return false;
 	      }
 	      if (one == piece) {
@@ -21866,7 +21866,7 @@
 	        }
 	      }
 	      if (n == 3) {
-	        return true;
+	        return "win";
 	      }
 	    }
 	  }, {
@@ -21874,10 +21874,10 @@
 	    value: function playerCheckDiagonalsForWin() {
 	      var right = this.checkRightDiagonal(this.state.playerPiece);
 	      var left = this.checkLeftDiagonal(this.state.playerPiece);
-	      if (right == true) {
+	      if (right == "win") {
 	        return true;
 	      } else {
-	        if (left == true) {
+	        if (left == "win") {
 	          return true;
 	        } else {
 	          return false;
@@ -21891,10 +21891,10 @@
 	    value: function computerCheckDiagonalsForWin() {
 	      var right = this.checkRightDiagonal(this.state.computerPiece);
 	      var left = this.checkLeftDiagonal(this.state.computerPiece);
-	      if (right !== false && right !== true) {
+	      if (right.row !== undefined) {
 	        return right;
 	      } else {
-	        if (left !== false && left !== true) {
+	        if (left.row !== undefined) {
 	          return left;
 	        } else {
 	          return false;
@@ -21929,7 +21929,7 @@
 	        }
 	      }
 	      if (n == 3) {
-	        return true;
+	        return "win";
 	      }
 	    }
 	    //Already Won Returns True, possible win returns number, else returns false
@@ -21961,7 +21961,7 @@
 	        }
 	      }
 	      if (n == 3) {
-	        return true;
+	        return "win";
 	      }
 	    }
 	  }, {
@@ -21970,7 +21970,7 @@
 	      var board = this.state.board;
 	      for (var i = 0; i < 3; i++) {
 	        var result = this.checkOneRow(board[i], this.state.playerPiece);
-	        if (result == true) {
+	        if (result == "win") {
 	          return true;
 	        }
 	      }
@@ -21983,7 +21983,7 @@
 	    value: function playerCheckColumnsForWin() {
 	      for (var i = 0; i < 3; i++) {
 	        var result = this.checkOneColumn(i, this.state.playerPiece);
-	        if (result == true) {
+	        if (result == "win") {
 	          return true;
 	        }
 	      }
@@ -21996,7 +21996,7 @@
 	    value: function computerCheckColumnsForWin() {
 	      for (var i = 0; i < 3; i++) {
 	        var result = this.checkOneColumn(i, this.state.computerPiece);
-	        if (result !== true && result !== false) {
+	        if (typeof result == "number") {
 	          return { row: result, column: i };
 	        }
 	      }
@@ -22010,7 +22010,7 @@
 	      var board = this.state.board;
 	      for (var i = 0; i < 3; i++) {
 	        var result = this.checkOneRow(board[i], this.state.computerPiece);
-	        if (result !== true && result !== false) {
+	        if (typeof result == "number") {
 	          return { row: i, column: result };
 	        }
 	      }
