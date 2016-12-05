@@ -1,5 +1,6 @@
 import React from "react";
 import Message from "./message";
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default class Game extends React.Component {
   constructor() {
@@ -22,12 +23,14 @@ export default class Game extends React.Component {
     if(board[row][column] == "" && this.state.canClick == true){
 	board[row][column] = this.state.playerPiece;
 	this.setState({board: board});
-        if(this.checkPlayerWin()){
-	//Display Message and End Game
+        if(this.checkPlayerWin()){	  
+	  this.displayMessage("You Win!","green");
+	  this.setState({board: [["","",""],["","",""],["","",""]]});
+	
 	}
 	if(this.checkTie()){	  
 	  this.displayMessage("A Tie!","black");
-	  this.setState(board: [["","",""],["","",""],["","",""]]);
+	  this.setState({board: [["","",""],["","",""],["","",""]]});
 	}
 	this.computerTurn();
     } else {
@@ -111,17 +114,17 @@ export default class Game extends React.Component {
     if(d){
 this.computerMove(d);
 this.displayMessage("You Lose!","red");
-this.setState(board: [["","",""],["","",""],["","",""]]);
+this.setState({board: [["","",""],["","",""],["","",""]]});
 } else { 
       if(r){
 this.computerMove(r)
 this.displayMessage("You Lose!","red");
-this.setState(board: [["","",""],["","",""],["","",""]]);
+this.setState({board: [["","",""],["","",""],["","",""]]});
 } else {
         if(c){
 this.computerMove(c)
 this.displayMessage("You Lose!","red");
-this.setState(board: [["","",""],["","",""],["","",""]]);
+this.setState({board: [["","",""],["","",""],["","",""]]});
 } else {
 	  if(center){
 this.computerMove(center)
@@ -129,7 +132,7 @@ if(this.checkTie()){
 
 		  
 this.displayMessage("A Tie!","black");
-this.setState(board: [["","",""],["","",""],["","",""]]);
+this.setState({board: [["","",""],["","",""],["","",""]]});
 		  
 		}
 } else {
@@ -138,7 +141,7 @@ this.computerMove(corner)
 if(this.checkTie()){
 		  
 this.displayMessage("A Tie!","black");
-this.setState(board: [["","",""],["","",""],["","",""]]);
+this.setState({board: [["","",""],["","",""],["","",""]]});
 		  
 		}
 } else {
@@ -146,7 +149,7 @@ this.setState(board: [["","",""],["","",""],["","",""]]);
 		if(this.checkTie()){
 		  
 this.displayMessage("A Tie!","black");
-this.setState(board: [["","",""],["","",""],["","",""]]);
+this.setState({board: [["","",""],["","",""],["","",""]]});
 		  
 		}
             }
@@ -168,6 +171,7 @@ this.setState(board: [["","",""],["","",""],["","",""]]);
     if(one == piece){n++}
     if(two == piece){n++}
     if(three == piece){n++}
+    if(n == 0){return false}
     if(n == 1){return false}
     if(n == 2){if(one == ""){return {row: 0, column: 0}} else {
 if(two == ""){return {row: 1, column: 1}} else {
@@ -190,6 +194,7 @@ return {row: 2, column: 2}
     if(one == piece){n++}
     if(two == piece){n++}
     if(three == piece){n++}
+    if(n == 0){return false}
     if(n == 1){return false}
     if(n == 2){if(one == ""){return {row: 0, column: 2}} else {
 if(two == ""){return {row: 1, column: 1}} else {
@@ -229,13 +234,14 @@ return {row: 2, column: 0}
   checkOneRow(row, piece){
     var n = 0;
     for(var j = 0; j < 3 ;j++){
-	if(row[j] !== piece || row[j] !== ""){
+	if(row[j] !== piece && row[j] !== ""){
 	  return false;
         }
-	else if(row[j] == piece){
+	if(row[j] == piece){
 	  n++;
         }
     }
+    if(n == 0){return false}
     if(n == 1){return false}
     if(n == 2){
 		for(var i = 0; i < 3; i++){
@@ -249,13 +255,14 @@ return {row: 2, column: 0}
     var board = this.state.board;
     var n = 0;
     for(var j = 0; j < 3; j++){
-	if(board[j][column] !== piece || board[j][column] !== ""){
+	if(board[j][column] !== piece && board[j][column] !== ""){
 	  return false;
         }
-	else if(board[j][column] == piece){
+	if(board[j][column] == piece){
 	  n++;
         }
     }
+    if(n == 0){return false}
     if(n == 1){return false}
     if(n == 2){
 		for(var i = 0; i < 3; i++){
@@ -335,7 +342,12 @@ return {row: 2, column: 0}
 	    <div><div style={squareStyle}　id="2,2" className="text-center square col-xs-4"　onClick={this.handleClick.bind(this)}>{this.state.board[2][2]}</div></div>
 	  </div>
 	</div>
-	{message}
+	<ReactCSSTransitionGroup
+          transitionName="message"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {message}
+        </ReactCSSTransitionGroup>
       </div>
     );
   }

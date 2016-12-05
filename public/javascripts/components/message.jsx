@@ -8,11 +8,11 @@ export default class Message extends React.Component {
     };
   }
   render() {
-
-    var messageStyle = {color: {this.props.color}};
+　　　 var color = this.props.color;
+    var messageStyle = {color: color};
 
     return (
-      <div className="message-container">
+      <div className=" text-center message-container">
         <div className="message">{this.props.message}</div>
       </div>
     );
