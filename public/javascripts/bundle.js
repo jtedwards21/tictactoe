@@ -21589,7 +21589,8 @@
 
 	  _createClass(Game, [{
 	    key: "resetGame",
-	    value: function resetGame(that) {
+	    value: function resetGame() {
+	      var that = this;
 	      window.setTimeout(function () {
 	        that.setState({ board: [["", "", ""], ["", "", ""], ["", "", ""]] });
 	      }, 1000);
@@ -22032,6 +22033,24 @@
 	      return false;
 	    }
 	  }, {
+	    key: "playerX",
+	    value: function playerX() {
+	      var that = this;
+	      this.resetGame();
+	      this.setState({
+	        playerPiece: 'X',
+	        computerPiece: 'O' });
+	    }
+	  }, {
+	    key: "playerO",
+	    value: function playerO() {
+	      var that = this;
+	      this.resetGame();
+	      this.setState({
+	        playerPiece: 'O',
+	        computerPiece: 'X' });
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
 
@@ -22155,6 +22174,20 @@
 	            transitionEnterTimeout: 500,
 	            transitionLeaveTimeout: 300 },
 	          message
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "change-piece-container" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "piece-btn", onClick: this.playerX.bind(this) },
+	            "X"
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "piece-btn", onClick: this.playerO.bind(this) },
+	            "O"
+	          )
 	        )
 	      );
 	    }

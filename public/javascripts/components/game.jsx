@@ -15,7 +15,8 @@ export default class Game extends React.Component {
       messageColor: ""
     };
   }
-  resetGame(that){
+  resetGame(){
+    var that = this;
     window.setTimeout(function(){that.setState({board: [["","",""],["","",""],["","",""]]});}, 1000);
   }
   handleClick(e){
@@ -323,6 +324,20 @@ return {row: 2, column: 0}
     }
     return false;
   }
+  playerX(){
+    var that = this;
+    this.resetGame();
+    this.setState({
+      playerPiece: 'X',
+      computerPiece: 'O'});
+  }
+  playerO(){
+    var that = this;
+    this.resetGame();
+    this.setState({
+      playerPiece: 'O',
+      computerPiece: 'X'});
+  }
   render() {
 
     var squareStyle;
@@ -359,6 +374,10 @@ return {row: 2, column: 0}
           transitionLeaveTimeout={300}>
           {message}
         </ReactCSSTransitionGroup>
+	<div className="change-piece-container">
+	  <div className="piece-btn" onClick={this.playerX.bind(this)}>X</div>
+	  <div className="piece-btn" onClick={this.playerO.bind(this)}>O</div>
+	</div>
       </div>
     );
   }
