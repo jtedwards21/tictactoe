@@ -17,7 +17,7 @@ export default class Game extends React.Component {
   }
   resetGame(){
     var that = this;
-    window.setTimeout(function(){that.setState({board: [["","",""],["","",""],["","",""]]});}, 1000);
+    window.setTimeout(function(){that.setState({board: [["","",""],["","",""],["","",""]]})}, 1000);
   }
   handleClick(e){
     console.log(e.target.id);
@@ -105,8 +105,10 @@ export default class Game extends React.Component {
     return true;
   }
   displayMessage(message, color){
+  var a = document.getElementById("message");
+  window.setTimeout(function(){a.innerHTML = "";}, 1000);
   this.setState({message: message, color: color});
-  //Blink the Message
+  
   }
   //At the beginning of computer turn should check for player win
   computerTurn(){
@@ -348,8 +350,10 @@ return {row: 2, column: 0}
     if (this.state.message !== ""){
 	message = <Message message={this.state.message} color={this.state.messageColor} />
     }
+    else{message = <Message message={""} color={this.state.messageColor} />}
 
     return (
+      <div>
       <div id="box" className="box">
 	<div className="board">
 	  <div id="top-row" className="board-row col-xs-12">
@@ -374,11 +378,13 @@ return {row: 2, column: 0}
           transitionLeaveTimeout={300}>
           {message}
         </ReactCSSTransitionGroup>
-	<div className="change-piece-container">
-	  <div className="piece-btn" onClick={this.playerX.bind(this)}>X</div>
-	  <div className="piece-btn" onClick={this.playerO.bind(this)}>O</div>
-	</div>
+	
       </div>
+      <div className="change-piece-container col-xs-4 col-xs-offset-4">
+	  <div className="piece-btn btn btn-default col-xs-2 col-xs-offset-3" onClick={this.playerX.bind(this)}>X</div>
+	  <div className="piece-btn btn btn-default col-xs-2 col-xs-offset-2" onClick={this.playerO.bind(this)}>O</div>
+	</div>
+	</div>
     );
   }
 }

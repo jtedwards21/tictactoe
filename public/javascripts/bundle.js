@@ -21723,8 +21723,11 @@
 	  }, {
 	    key: "displayMessage",
 	    value: function displayMessage(message, color) {
+	      var a = document.getElementById("message");
+	      window.setTimeout(function () {
+	        a.innerHTML = "";
+	      }, 1000);
 	      this.setState({ message: message, color: color });
-	      //Blink the Message
 	    }
 	    //At the beginning of computer turn should check for player win
 
@@ -22065,127 +22068,133 @@
 	      var message;
 	      if (this.state.message !== "") {
 	        message = _react2.default.createElement(_message2.default, { message: this.state.message, color: this.state.messageColor });
+	      } else {
+	        message = _react2.default.createElement(_message2.default, { message: "", color: this.state.messageColor });
 	      }
 
 	      return _react2.default.createElement(
 	        "div",
-	        { id: "box", className: "box" },
+	        null,
 	        _react2.default.createElement(
 	          "div",
-	          { className: "board" },
+	          { id: "box", className: "box" },
 	          _react2.default.createElement(
 	            "div",
-	            { id: "top-row", className: "board-row col-xs-12" },
+	            { className: "board" },
 	            _react2.default.createElement(
 	              "div",
-	              null,
+	              { id: "top-row", className: "board-row col-xs-12" },
 	              _react2.default.createElement(
 	                "div",
-	                { style: squareStyle, id: "0,0", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
-	                this.state.board[0][0]
+	                null,
+	                _react2.default.createElement(
+	                  "div",
+	                  { style: squareStyle, id: "0,0", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                  this.state.board[0][0]
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                null,
+	                _react2.default.createElement(
+	                  "div",
+	                  { style: squareStyle, id: "0,1", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                  this.state.board[0][1]
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                null,
+	                _react2.default.createElement(
+	                  "div",
+	                  { style: squareStyle, id: "0,2", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                  this.state.board[0][2]
+	                )
 	              )
 	            ),
 	            _react2.default.createElement(
 	              "div",
-	              null,
+	              { id: "middle-row", className: "board-row col-xs-12" },
 	              _react2.default.createElement(
 	                "div",
-	                { style: squareStyle, id: "0,1", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
-	                this.state.board[0][1]
+	                null,
+	                _react2.default.createElement(
+	                  "div",
+	                  { style: squareStyle, id: "1,0", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                  this.state.board[1][0]
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                null,
+	                _react2.default.createElement(
+	                  "div",
+	                  { style: squareStyle, id: "1,1", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                  this.state.board[1][1]
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                null,
+	                _react2.default.createElement(
+	                  "div",
+	                  { style: squareStyle, id: "1,2", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                  this.state.board[1][2]
+	                )
 	              )
 	            ),
 	            _react2.default.createElement(
 	              "div",
-	              null,
+	              { id: "bottom-row", className: "board-row col-xs-12" },
 	              _react2.default.createElement(
 	                "div",
-	                { style: squareStyle, id: "0,2", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
-	                this.state.board[0][2]
+	                null,
+	                _react2.default.createElement(
+	                  "div",
+	                  { style: squareStyle, id: "2,0", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                  this.state.board[2][0]
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                null,
+	                _react2.default.createElement(
+	                  "div",
+	                  { style: squareStyle, id: "2,1", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                  this.state.board[2][1]
+	                )
+	              ),
+	              _react2.default.createElement(
+	                "div",
+	                null,
+	                _react2.default.createElement(
+	                  "div",
+	                  { style: squareStyle, id: "2,2", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
+	                  this.state.board[2][2]
+	                )
 	              )
 	            )
 	          ),
 	          _react2.default.createElement(
-	            "div",
-	            { id: "middle-row", className: "board-row col-xs-12" },
-	            _react2.default.createElement(
-	              "div",
-	              null,
-	              _react2.default.createElement(
-	                "div",
-	                { style: squareStyle, id: "1,0", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
-	                this.state.board[1][0]
-	              )
-	            ),
-	            _react2.default.createElement(
-	              "div",
-	              null,
-	              _react2.default.createElement(
-	                "div",
-	                { style: squareStyle, id: "1,1", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
-	                this.state.board[1][1]
-	              )
-	            ),
-	            _react2.default.createElement(
-	              "div",
-	              null,
-	              _react2.default.createElement(
-	                "div",
-	                { style: squareStyle, id: "1,2", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
-	                this.state.board[1][2]
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            "div",
-	            { id: "bottom-row", className: "board-row col-xs-12" },
-	            _react2.default.createElement(
-	              "div",
-	              null,
-	              _react2.default.createElement(
-	                "div",
-	                { style: squareStyle, id: "2,0", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
-	                this.state.board[2][0]
-	              )
-	            ),
-	            _react2.default.createElement(
-	              "div",
-	              null,
-	              _react2.default.createElement(
-	                "div",
-	                { style: squareStyle, id: "2,1", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
-	                this.state.board[2][1]
-	              )
-	            ),
-	            _react2.default.createElement(
-	              "div",
-	              null,
-	              _react2.default.createElement(
-	                "div",
-	                { style: squareStyle, id: "2,2", className: "text-center square col-xs-4", onClick: this.handleClick.bind(this) },
-	                this.state.board[2][2]
-	              )
-	            )
+	            _reactAddonsCssTransitionGroup2.default,
+	            {
+	              transitionName: "message",
+	              transitionEnterTimeout: 500,
+	              transitionLeaveTimeout: 300 },
+	            message
 	          )
 	        ),
 	        _react2.default.createElement(
-	          _reactAddonsCssTransitionGroup2.default,
-	          {
-	            transitionName: "message",
-	            transitionEnterTimeout: 500,
-	            transitionLeaveTimeout: 300 },
-	          message
-	        ),
-	        _react2.default.createElement(
 	          "div",
-	          { className: "change-piece-container" },
+	          { className: "change-piece-container col-xs-4 col-xs-offset-4" },
 	          _react2.default.createElement(
 	            "div",
-	            { className: "piece-btn", onClick: this.playerX.bind(this) },
+	            { className: "piece-btn btn btn-default col-xs-2 col-xs-offset-3", onClick: this.playerX.bind(this) },
 	            "X"
 	          ),
 	          _react2.default.createElement(
 	            "div",
-	            { className: "piece-btn", onClick: this.playerO.bind(this) },
+	            { className: "piece-btn btn btn-default col-xs-2 col-xs-offset-2", onClick: this.playerO.bind(this) },
 	            "O"
 	          )
 	        )
@@ -22245,7 +22254,7 @@
 	        { className: " text-center message-container" },
 	        _react2.default.createElement(
 	          "div",
-	          { className: "message" },
+	          { className: "message", id: "message" },
 	          this.props.message
 	        )
 	      );

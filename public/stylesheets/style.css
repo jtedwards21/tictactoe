@@ -5,6 +5,11 @@
   src: url("Luna.ttf") format('truetype');
 }
 
+.change-piece-container {
+  margin-top: 20px;
+}
+
+
 @font-face {
   font-family: Denominator;
   font-style: normal;

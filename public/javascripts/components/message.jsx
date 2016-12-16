@@ -13,7 +13,7 @@ export default class Message extends React.Component {
 
     return (
       <div className=" text-center message-container">
-        <div className="message">{this.props.message}</div>
+        <div className="message"　id="message">{this.props.message}</div>
       </div>
     );
   }
