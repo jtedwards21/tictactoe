@@ -22189,12 +22189,12 @@
 	          { className: "change-piece-container col-xs-4 col-xs-offset-4" },
 	          _react2.default.createElement(
 	            "div",
-	            { className: "piece-btn btn btn-default col-xs-2 col-xs-offset-3", onClick: this.playerX.bind(this) },
+	            { className: "piece-btn col-xs-2 col-xs-offset-3", onClick: this.playerX.bind(this) },
 	            "X"
 	          ),
 	          _react2.default.createElement(
 	            "div",
-	            { className: "piece-btn btn btn-default col-xs-2 col-xs-offset-2", onClick: this.playerO.bind(this) },
+	            { className: "piece-btn col-xs-2 col-xs-offset-2", onClick: this.playerO.bind(this) },
 	            "O"
 	          )
 	        )

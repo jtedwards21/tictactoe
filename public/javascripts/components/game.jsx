@@ -381,8 +381,8 @@ return {row: 2, column: 0}
 	
       </div>
       <div className="change-piece-container col-xs-4 col-xs-offset-4">
-	  <div className="piece-btn btn btn-default col-xs-2 col-xs-offset-3" onClick={this.playerX.bind(this)}>X</div>
-	  <div className="piece-btn btn btn-default col-xs-2 col-xs-offset-2" onClick={this.playerO.bind(this)}>O</div>
+	  <div className="piece-btn col-xs-2 col-xs-offset-3" onClick={this.playerX.bind(this)}>X</div>
+	  <div className="piece-btn col-xs-2 col-xs-offset-2" onClick={this.playerO.bind(this)}>O</div>
 	</div>
 	</div>
     );
