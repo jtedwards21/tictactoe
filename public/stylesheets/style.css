@@ -27,6 +27,24 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9e878d', end
 }
 
 
+a {
+  color: black;
+}
+
+#github-img {
+  width: 50px;
+  color: black;
+}
+
+#github-container {
+  color: black;
+}
+
+#github-container p {
+  font-family: Denominator;
+  font-size: 1.5em;
+}
+
 
 @font-face {
   font-family: Denominator;
