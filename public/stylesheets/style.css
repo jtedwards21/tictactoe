@@ -5,6 +5,15 @@
   src: url("Luna.ttf") format('truetype');
 }
 
+
+@font-face {
+  font-family: Denominator;
+  font-style: normal;
+  font-weight: normal;
+  src: url("Denominator.ttf") format('truetype');
+}
+
+
 .change-piece-container {
   margin-top: 20px;
 }
@@ -27,31 +36,32 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9e878d', end
 }
 
 
-a {
-  color: black;
+#link-container {
+
+  position: fixed;
+  top: 95vh;
 }
 
-#github-img {
+#github-img{
   width: 50px;
-  color: black;
+}
+
+a {
+  color: #52486F;
 }
 
 #github-container {
-  color: black;
+  width: 300px;
+  text-align: center;
 }
 
 #github-container p {
   font-family: Denominator;
   font-size: 1.5em;
+  color: black;
 }
 
 
-@font-face {
-  font-family: Denominator;
-  font-style: normal;
-  font-weight: normal;
-  src: url("Denominator.ttf") format('truetype');
-}
 
 #background {
   background-color: #555;
